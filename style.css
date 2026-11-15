@@ -1,0 +1,108 @@
+/* CSS Cơ bản và Thiết lập cuộn */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #ffffff; /* Nền sáng mặc định */
+    color: #333333; /* Chữ tối mặc định */
+}
+
+h1 {
+    text-align: center;
+}
+
+/* ==================================================
+   1. CHẾ ĐỘ MOBILE (Ưu tiên thiết bị di động)
+   ================================================== */
+/* Sử dụng lưới một cột, khoảng cách 10px (Không dùng media query) */
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+}
+
+figure {
+    margin: 0;
+    padding: 15px;
+    border: 3px solid #dddddd; /* Viền sáng mặc định */
+    background-color: #f9f9f9; /* Nền hình sáng mặc định */
+    text-align: center;
+}
+
+img {
+    width: 100%;
+    display: block;
+}
+
+/* ==================================================
+   2. CHẾ ĐỘ TABLET (Kích hoạt ở 772px)
+   ================================================== */
+@media screen and (min-width: 772px) {
+    /* Sử dụng lưới 2 cột, không lặp lại display: grid */
+    .grid-container {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    /* Đặt bán kính đường viền tạo hình tròn */
+    img {
+        border-radius: 50%;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+    }
+
+    /* Đặt figure cuối cùng chiếm cả 2 cột */
+    figure:last-child {
+        grid-column: 1 / span 2;
+    }
+}
+
+/* ==================================================
+   3. CHẾ ĐỘ MÀN HÌNH LỚN (Kích hoạt ở 992px)
+   ================================================== */
+@media screen and (min-width: 992px) {
+    /* Khôi phục hình cuối về 1 cột nếu nó không phải là hình thứ 3 */
+    figure:last-child {
+        grid-column: auto; 
+    }
+
+    /* Đặt mỗi figure thứ ba chiếm cả 2 cột */
+    figure:nth-child(3n) {
+        grid-column: 1 / span 2;
+    }
+
+    /* Xóa bán kính đường viền khỏi tất cả hình, không dùng max-width */
+    img {
+        border-radius: 0;
+    }
+}
+
+/* ==================================================
+   4. CHẾ ĐỘ GIẢM CHUYỂN ĐỘNG (Reduced Motion)
+   ================================================== */
+@media (prefers-reduced-motion: reduce) {
+    /* Xóa hành vi cuộn mượt */
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+/* ==================================================
+   5. CHẾ ĐỘ TỐI (Dark Mode)
+   ================================================== */
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #121212; /* Nền tổng thể chuyển sang tối */
+        color: #ffffff;
+    }
+
+    /* Đổi nền, chữ, viền của figure theo đúng yêu cầu */
+    figure {
+        background-color: #333333; /* Thay đổi màu nền của các hình thành màu tối */
+        color: #ffff99;            /* Thay đổi màu phông chữ của hình thành màu nhạt/vàng */
+        border-color: #000000;     /* Thay đổi màu viền thành màu đen */
+    }
+}
